@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello VisitController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Reservations Page</h1>
+    <form>
+
+    <h2>Find reservation by code</h2>
+
+    <input></input>
+    </form>
+
+    <button>Find</button>
+
+    <section class="ui container">
+        <form class="ui form" action="visit/new" method="get">
+            <div class="field">
+                <label>Your Name:</label>
+                <input type="text" name="name">
+            </div>
+            <div class="field">
+                <label>Message</label>
+                <input type="text" name="message">
+            </div>
+            <label for="cars">Choose a car:</label>
+            <div class="field">
+            <select name="cars" id="cars">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+            </div>
+            <button class="ui button" type="submit">Send</button>
+        </form>
+
+    </section>
+
+</div>
+{% endblock %}
