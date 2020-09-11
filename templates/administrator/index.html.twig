@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Visits Tables{% endblock %}
+
+{% block body %}
+
+    <style>
+        .column {
+            margin-top: 1rem;
+        }
+
+        table {
+            margin-left: 1rem;
+            margin-right: 1rem;
+
+        }
+    </style>
+
+    <div class="container" id="tables">
+        {{ include('administrator/tables.html.twig') }}
+    </div>
+
+    <script>
+        const interval = setInterval(function () {
+            $.ajax({
+                async: false,
+                url: "/administrator/tables"
+            })
+                .done(function (data) {
+                    $('#tables').html(data);
+                });
+        }, 5000);
+
+    </script>
+{% endblock %}

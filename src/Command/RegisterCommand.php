@@ -2,17 +2,14 @@
 
 namespace App\Command;
 
+use App\Entity\User;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Question\Question;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Entity\User;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Console\Question\Question;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 class RegisterCommand extends Command
@@ -23,7 +20,7 @@ class RegisterCommand extends Command
     private $container;
 
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder,ContainerInterface $container)
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, ContainerInterface $container)
     {
         $this->passwordEncoder = $passwordEncoder;
         $this->container = $container;
@@ -32,20 +29,19 @@ class RegisterCommand extends Command
     }
 
 
-
     public function execute(InputInterface $input, OutputInterface $output)
-{
+    {
 
         $helper = $this->getHelper('question');
 
         $question1 = new Question('User Email : ');
 
-        $question2= new Question('User Name : ');
+        $question2 = new Question('User Name : ');
 
         $question3 = new ChoiceQuestion(
-            'Please Select User Role (defaults to Specialist )',
-            ['Specialist', 'Administrator'],
-            0
+            'Please Select User Role (defaults to ROLE_SPECIALIST )',
+            ['ROLE_ADMIN', 'ROLE_SPECIALIST'],
+            1
         );
         $question3->setErrorMessage('Role %s Is Invalid.');
 
@@ -64,8 +60,7 @@ class RegisterCommand extends Command
         $password = $helper->ask($input, $output, $question4);
         $repassword = $helper->ask($input, $output, $question5);
 
-        if($password !== $repassword)
-        {
+        if ($password !== $repassword) {
             throw new \Exception('The Passwords Does Not Match!');
 
         }
@@ -75,6 +70,7 @@ class RegisterCommand extends Command
         $user->setName($name);
         $user->setRoles([$role]);
         $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
+        $user->setIsWorking(false);
 
 
         // Save
@@ -86,11 +82,11 @@ class RegisterCommand extends Command
             '============',
             'User Registered',
             '============',
-            'Name : '.$name ,
-            'Email : '.$email ,
-            'Role : '.$role,
+            'Name : ' . $name,
+            'Email : ' . $email,
+            'Role : ' . $role,
             '',
-            ]);
+        ]);
         return Command::SUCCESS;
-}
+    }
 }

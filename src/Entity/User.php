@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
-     /**
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -26,6 +26,18 @@ class User implements UserInterface
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="boolean", unique=false)
+     */
+    private $isWorking;
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $estGap;
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $totalVisits;
     /**
      * @ORM\Column(type="json")
      */
@@ -75,7 +87,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -84,8 +96,7 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has 'user'
-        $roles[] = 'user';
+
         return array_unique($roles);
     }
 
@@ -100,7 +111,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
@@ -164,6 +175,42 @@ class User implements UserInterface
                 $visit->setSpecialist(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsWorking(): ?bool
+    {
+        return $this->isWorking;
+    }
+
+    public function setIsWorking(bool $isWorking): self
+    {
+        $this->isWorking = $isWorking;
+
+        return $this;
+    }
+
+    public function getEstGap(): ?int
+    {
+        return $this->estGap;
+    }
+
+    public function setEstGap(?int $estGap): self
+    {
+        $this->estGap = $estGap;
+
+        return $this;
+    }
+
+    public function getTotalVisits(): ?int
+    {
+        return $this->totalVisits;
+    }
+
+    public function setTotalVisits(?int $totalVisits): self
+    {
+        $this->totalVisits = $totalVisits;
 
         return $this;
     }

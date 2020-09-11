@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<style>
+    .grid{
+        height: 100%;
+    }
+    .segment-empty{
+        visibility: hidden;
+    }
+</style>
+    <div  class="ui grid middle aligned">
+        <div class="row">
+            <div class="column">
+                <div class="ui raised text container segment ">
+                    <h2 class="ui header"> Hi, <i>{{ visit.customer }}</i></h2>
+                    <h4 class="ui header"> Here is your visit data</h4>
+                    <h4 class="ui header red "> Save your key! It is necessary to check this page again</h4>
+
+                    <table class="ui basic table">
+                        <thead>
+                        <tr>
+                            <th>Specialist</th>
+                            <th>Key</th>
+
+                            <th >Estimated Time</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ visit.specialist.name }}</td>
+                            <td ><h4 class="ui header ">{{ visit.code }}</h4></td>
+
+                            {% if visit.estTime ==null %}
+                                <td class="center aligned">--:--</td>
+                            {% else %}
+                                <td class="center aligned">{{ visit.estTime |date('H:i:s') }}</td>
+                            {% endif %}
+                            <td>
+                                <button class="negative ui button" onclick="location.href=  `{{ path('deleteVisit', {'code': visit.code }) }}  `">Cancel Visit</button>
+                            </td>
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+                    <button class=" ui button" onclick="location.href='../visit'">Back</button>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

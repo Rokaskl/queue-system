@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SpecialistController!{% endblock %}
+
+{% block body %}
+    {% if visits|first ==true %}
+
+        <div class="column">
+
+            <table class="ui simple  table ">
+                <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Specialist</th>
+                    <th>Estimated Time</th>
+                    <th>Actions</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for visit in visits %}
+                    {% if visits|first ==visit %}
+                        <tr style="background-color: #5eb5e0">
+                    {% else %}
+                        <tr>
+                    {% endif %}
+
+                    <td>{{ visit.customer }}</td>
+                    <td>{{ visit.specialist.name }}</td>
+                    {% if visit.estTime ==null %}
+                        <td class="center aligned">--:--</td>
+                    {% else %}
+                        <td class="center aligned">{{ visit.estTime |date('H:i:s') }}</td>
+                    {% endif %}
+                    <td>
+                        {% if visits|first ==visit %}
+                        {% if isWorking ==true %}
+                            <button class="ui right labeled icon button" onclick="location.href=  `{{ path('specialistStop', {'visitId': visit.id }) }}`  ">
+                                <i class="right arrow icon"></i>
+                                Stop
+                            </button>
+
+                        {% endif %}
+                            {% if isWorking ==false %}
+
+                                <button class="ui right labeled icon button" onclick="location.href=  `{{ path('specialistStart', {'visitId': visit.id}) }}`  ">
+                                    <i class="right arrow icon"></i>
+                                    Start
+                                </button>
+                            {% endif %}
+                        {% endif %}
+
+                        <button class="negative ui button right floated " onclick="location.href=  `{{ path('deleteVisit', {'code': visit.code, 'isSpecialist' : true }) }}`  ">Cancel Visit</button>
+                    </td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <h2 class="ui center aligned header"> No visits in queue</h2>
+    {% endif %}
+
+{% endblock %}

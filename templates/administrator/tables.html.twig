@@ -1,0 +1,45 @@
+{% block body %}
+    <div class=" three column ui padded grid " id="tables">
+        {% for specialist in visits %}
+            {% if specialist|first ==true %}
+                <div class="column">
+                    <h3 class="ui center aligned header">{{ specialist|first.specialist.name }}</h3>
+                    <table class="ui simple table ">
+                        <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Specialist</th>
+                            <th>Estimated Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for visit in specialist %}
+                            {% if specialist|first ==visit %}
+                                <tr style="background-color: #5eb5e0">
+                            {% else %}
+                                <tr>
+                            {% endif %}
+
+                            <td>{{ visit.customer }}</td>
+                            <td>{{ visit.specialist.name }}</td>
+                            {% if specialist|first ==visit %}
+                                <td class="center aligned">NOW</td>
+
+                            {% else %}
+
+                            {% if visit.estTime ==null %}
+                                <td class="center aligned">--:--</td>
+                            {% else %}
+                                <td class="center aligned">{{ visit.estTime |date('H:i:s') }}</td>
+                            {% endif %}
+                            {% endif %}
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

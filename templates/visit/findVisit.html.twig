@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello VisitController!{% endblock %}
+
+{% block body %}
+    <style>
+        .grid{
+            height: 100%;
+        }
+
+    </style>
+<div class="ui grid middle aligned">
+    <div class="row">
+        <div class="column">
+            <div class="ui  text container segment ">
+                <form class="ui form " method="post">
+                    {{ form_start(findVisitForm) }}
+                    <h2 class="ui header">Find visit by key</h2>
+                    {{ form_end(findVisitForm) }}
+                    <button class=" ui button" onclick="location.href='../visit'">Back</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

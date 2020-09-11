@@ -1,47 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello VisitController!{% endblock %}
+
+
+{% block title %}Visits{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .grid{
+            height: 100%;
+            width: 100%;
 
-<div class="example-wrapper">
-    <h1>Reservations Page</h1>
-    <form>
+        }
+        .segment-empty{
+            visibility: hidden;
+        }
+    </style>
 
-    <h2>Find reservation by code</h2>
+    <div  class="ui grid middle aligned">
+        <div class="row">
+            <div class="column">
+                <div class="ui text container ">
 
-    <input></input>
-    </form>
-
-    <button>Find</button>
-
-    <section class="ui container">
-        <form class="ui form" action="visit/new" method="get">
-            <div class="field">
-                <label>Your Name:</label>
-                <input type="text" name="name">
+                    <div class="ui two massive buttons">
+                        <button class="massive  ui button teal" onclick="location.href='visit/find'">Find Visit</button>
+                        <div class="or"></div>
+                        <button class="  ui button violet" onclick="location.href='visit/new'">Register Visit</button>
+                    </div>
+                    </div>
+                </div>
             </div>
-            <div class="field">
-                <label>Message</label>
-                <input type="text" name="message">
-            </div>
-            <label for="cars">Choose a car:</label>
-            <div class="field">
-            <select name="cars" id="cars">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-            </select>
-            </div>
-            <button class="ui button" type="submit">Send</button>
-        </form>
+        </div>
 
-    </section>
-
-</div>
+    </div>
 {% endblock %}

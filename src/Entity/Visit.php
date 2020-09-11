@@ -27,9 +27,30 @@ class Visit
      */
     private $code;
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $startDate;
+    /**
+     * @ORM\Column(type="datetime", nullable=false)
+     *
      */
     private $registrationDate;
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     */
+    private $endDate;
+    /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default" : false})
+     *
+     */
+    private $cancelled;
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     *
+     */
+    private $estTime;
+
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="visits")
      * @ORM\JoinColumn(nullable=false)
@@ -88,4 +109,54 @@ class Visit
 
         return $this;
     }
+
+    public function getEndDate(): ?\DateTimeInterface
+    {
+        return $this->endDate;
+    }
+
+    public function setEndDate(\DateTimeInterface $endDate): self
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    public function getCancelled(): ?bool
+    {
+        return $this->cancelled;
+    }
+
+    public function setCancelled(bool $cancelled): self
+    {
+        $this->cancelled = $cancelled;
+
+        return $this;
+    }
+
+    public function getEstTime(): ?int
+    {
+        return $this->estTime;
+    }
+
+    public function setEstTime(?int $estTime): self
+    {
+        $this->estTime = $estTime;
+
+        return $this;
+    }
+
+    public function getStartDate(): ?\DateTimeInterface
+    {
+        return $this->startDate;
+    }
+
+    public function setStartDate(\DateTimeInterface $startDate): self
+    {
+        $this->startDate = $startDate;
+
+        return $this;
+    }
+
+
 }

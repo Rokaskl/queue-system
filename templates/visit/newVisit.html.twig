@@ -3,7 +3,29 @@
 {% block title %}Show message{% endblock %}
 
 {% block body %}
+    <style>
+        .grid{
+            height: 100%;
+        }
+        .segment-empty{
+            visibility: hidden;
+        }
+    </style>
+    <div class="ui grid middle aligned">
+        <div class="row">
+            <div class="column">
+                <div class="ui  text container segment ">
+                    <form class="ui form " method="post">
+                        {{ form_start(newVisitForm) }}
 
-    {{name}} says: {{message}}
+                        <h2 class="ui header">Register New Visit</h2>
+
+                        {{ form_end(newVisitForm) }}
+                        <button class=" ui button" onclick="location.href='../visit'">Back</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
 
 {% endblock %}
